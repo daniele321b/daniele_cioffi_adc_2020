@@ -7,6 +7,14 @@
   <version>1.0-SNAPSHOT</version>
   <name>social</name>
   <url>http://maven.apache.org</url>
+
+  <repositories>
+		<repository>
+			<id>tomp2p.net</id>
+			<url>http://tomp2p.net/dev/mvn/</url>
+		</repository>
+	</repositories>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,11 +22,17 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>net.tomp2p</groupId>
+			<artifactId>tomp2p-all</artifactId>
+			<version>5.0-Beta8</version>
+		</dependency>
   </dependencies>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>14</maven.compiler.source>
+    <maven.compiler.target>14</maven.compiler.target>
   </properties>
 </project>
+
