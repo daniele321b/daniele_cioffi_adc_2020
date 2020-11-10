@@ -27,6 +27,8 @@ public final class App {
 
         }
 
+        // SocialImplementation peer0 = new SocialImplementation(0, "127.0.0.1", new
+        // MessageListenerImpl(0));
         try {
             SocialImplementation peer0 = new SocialImplementation(0, "127.0.0.1", new MessageListenerImpl(0));
             SocialImplementation peer1 = new SocialImplementation(1, "127.0.0.1", new MessageListenerImpl(1));
@@ -56,10 +58,10 @@ public final class App {
 
             // user.createAuserProfileKey(user._answers);
 
-            // // System.out.println("Answers");
-            // // for (int i = 0; i < 5; i++) {
-            // // System.out.print(peer0._answers.get(i));
-            // // }
+            // System.out.println("Answers");
+            // for (int i = 0; i < 5; i++) {
+            // System.out.print(peer0._answers.get(i));
+            // }
 
             // System.out.println("\n<----------------->");
             // if (user.join(peer0.profile_key, "Nickname")) {

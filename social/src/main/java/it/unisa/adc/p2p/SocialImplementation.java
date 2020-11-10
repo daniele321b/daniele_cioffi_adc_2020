@@ -2,14 +2,15 @@ package it.unisa.adc.p2p;
 
 import java.net.InetAddress;
 import java.util.*;
+
+import net.tomp2p.dht.PeerBuilderDHT;
+import net.tomp2p.dht.PeerDHT;
+import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
-import net.tomp2p.dht.PeerBuilderDHT;
-import net.tomp2p.dht.PeerDHT;
-import net.tomp2p.futures.FutureBootstrap;
 
 public class SocialImplementation implements SocialInterface {
     // final private Peer peer;
@@ -29,6 +30,7 @@ public class SocialImplementation implements SocialInterface {
     public SocialImplementation(int _id, String _master_peer, final MessageListener _listener) throws Exception {
         peer = new PeerBuilder(Number160.createHash(_id)).ports(DEFAULT_MASTER_PORT + _id).start();
         _dht = new PeerBuilderDHT(peer).start();
+
         FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(_master_peer))
                 .ports(DEFAULT_MASTER_PORT).start();
         fb.awaitUninterruptibly();
@@ -79,7 +81,25 @@ public class SocialImplementation implements SocialInterface {
 
     @Override
     public List<String> getFriends() {
+        // Object _obj;
+        // try {
+        // FutureGet futureGet = _dht.get(Number160.createHash(_profile_key)).start();
+        // futureGet.awaitUninterruptibly();
+        // if (futureGet.isSuccess()) {
+        // HashSet<PeerAddress> peers_on_topic;
+        // peers_on_topic = (HashSet<PeerAddress>)
+        // futureGet.dataMap().values().iterator().next().object();
+        // // for (PeerAddress peer : peers_on_topic) {
+        // // FutureDirect futureDirect =
+        // // _dht.peer().sendDirect(peer).object(_obj).start();
+        // // // futureDirect.awaitUninterruptibly();
 
+        // // _friends.add(futureDirect.toString()); }
+
+        // }
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
         return _friends;
     }
 
