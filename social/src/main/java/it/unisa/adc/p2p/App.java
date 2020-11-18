@@ -29,15 +29,18 @@ public final class App {
                     System.out.println("INSERT NICKNAME");
                     String nickName = input.next();
                     // join
-                    peer.store("id" + args[0], nickName);
+                    // peer.store("id" + args[0], nickName);
+                    User new_user = new User();
+                    new_user.userName = nickName;
+                    peer.store("id" + args[0], new_user);
                     break;
                 case 2:
                     // get firends
                     System.out.println("INSERT id to search");
                     String id = input.next();
-                    System.out.println("Name:" + id + " Nick:" + peer.get(id));
-                    // User user1 = peer.get(id);
-                    // System.out.println("friend0 " + user1.friends.get(0));
+                    // System.out.println("Name:" + id + " Nick:" + peer.get(id));
+                    User user1 = peer.get(id);
+                    System.out.println("userName " + user1.userName);
                     break;
                 default:
                     break;

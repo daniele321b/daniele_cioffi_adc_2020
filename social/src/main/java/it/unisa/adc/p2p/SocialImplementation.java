@@ -55,21 +55,27 @@ public class SocialImplementation implements SocialInterface {
     // }
     // return "not found";
     // }
-    public String get(String name) throws ClassNotFoundException, IOException {
+    public User get(String name) throws ClassNotFoundException, IOException {
         FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
         futureGet.awaitUninterruptibly();
         if (futureGet.isSuccess()) {
-            return futureGet.dataMap().values().iterator().next().object().toString();
-            // return (User) futureGet.dataMap().values().iterator().next().object();
+            // return futureGet.dataMap().values().iterator().next().object().toString();
+            return (User) futureGet.dataMap().values().iterator().next().object();
         }
-        return "not found";
+        return null;
     }
 
-    public void store(String name, String msg) throws IOException {
+    // public void store(String name, String msg) throws IOException {
 
-        _dht.put(Number160.createHash(name)).data(new Data(msg)).start().awaitUninterruptibly();
-        // _dht.put(Number160.createHash(name)).data(new Data((Object)
-        // user)).start().awaitUninterruptibly();
+    // _dht.put(Number160.createHash(name)).data(new
+    // Data(msg)).start().awaitUninterruptibly();
+
+    // }
+
+    public void store(String name, User _user_) throws IOException {
+
+        _dht.put(Number160.createHash(name)).data(new Data(_user_)).start().awaitUninterruptibly();
+
     }
 
     @Override
