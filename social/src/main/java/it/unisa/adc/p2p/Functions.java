@@ -10,11 +10,28 @@ public class Functions {
         int i, a, n = _questionsList.size();
         System.out.println("Answer the following questions(with code 1 for Yes, 0 for NOT)");
         for (i = 0; i < n; i++) {
-            System.out.println(_questionsList.get(i));
-            a = input.nextInt();
-            if (validateInt(a))
-                _answersList.add(a);
+
+            do {
+                System.out.println(_questionsList.get(i));
+                a = input.nextInt();
+                if (validateInt(a)) {
+                    _answersList.add(a);
+                } else {
+                    System.out.println("INSERT 0 OR 1");
+                }
+
+            } while (!validateInt(a));
+
         }
+    }
+
+    public static void showAnswers(List<Integer> _answersList) {
+        int i, n = _answersList.size();
+        System.out.println("Answer String");
+        for (i = 0; i < n; i++) {
+            System.out.print(_answersList.get(i));
+        }
+        System.out.println("\n");
     }
 
     public static boolean validateInt(int n) {
@@ -35,4 +52,5 @@ public class Functions {
         else
             return false;
     }
+
 }

@@ -15,7 +15,8 @@
             "name": "Debug (Launch)-App<social>",
             "request": "launch",
             "mainClass": "it.unisa.adc.p2p.App",
-            "projectName": "social"
+            "projectName": "social",
+            "args": "0 _name_"
         }
     ]
 }
