@@ -16,7 +16,7 @@
             "request": "launch",
             "mainClass": "it.unisa.adc.p2p.App",
             "projectName": "social",
-            "args": "0 _name_"
+            "args": "0 "
         }
     ]
 }

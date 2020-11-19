@@ -41,11 +41,18 @@ public class Functions {
             return false;
     }
 
-    public static boolean weAreFriends(SocialImplementation p1, SocialImplementation p2) {
-        int count = 0, i, n = p1._answers.size();
+    public static boolean weAreFriends(User p1, User p2) {
+        int count = 0, a, b, i, n = p1._answers.size();
         for (i = 0; i < n; i++) {
-            if (p1._answers.get(i) == p2._answers.get(i))
+            a = p1._answers.get(i);
+            b = p2._answers.get(i);
+            if (a == b) {
+                // System.out.println(a + " == " + b);
                 count++;
+            } else {
+                // System.out.println(a + " != " + b);
+            }
+
         }
         if (count > 2)
             return true;

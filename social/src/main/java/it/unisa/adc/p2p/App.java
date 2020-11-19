@@ -20,9 +20,9 @@ public final class App {
             switch (s) {
                 case 1:
                     // get User profile questions
-                    Functions.getAnswers(peer.getUserProfileQuestions(), peer._answers);
+                    Functions.getAnswers(peer.getUserProfileQuestions(), peer._user._answers);
                     System.out.println("OK GOOD");
-                    Functions.showAnswers(peer._answers);
+                    Functions.showAnswers(peer._user._answers);
                     // create Key
 
                     // nickname
@@ -30,18 +30,37 @@ public final class App {
                     String nickName = input.next();
                     // join
                     // peer.store("id" + args[0], nickName);
-                    User new_user = new User();
-                    new_user.userName = nickName;
-                    peer.store("id" + args[0], new_user);
+                    // User new_user = new User();
+                    // new_user.userName = nickName;
+                    // STOREEEEEEEE
+                    peer.store("id" + args[0], nickName);
                     break;
                 case 2:
                     // get firends
-                    System.out.println("INSERT id to search");
-                    String id = input.next();
-                    // System.out.println("Name:" + id + " Nick:" + peer.get(id));
-                    User user1 = peer.get(id);
-                    System.out.println("userName " + user1.userName);
+                    System.out.println("INSERT ID TO SEARCH");
+                    String id0 = input.next();
+                    // System.out.println("Name:" + id0 + " Nick:" + peer.get(id0));
+                    // User user0 = peer.get(id0);
+                    // System.out.println("userName " + user0.userName);
+                    String s1 = peer.getUsername(id0);
+                    System.out.println("userName: " + s1);
                     break;
+                case 3:
+                    System.out.println("INSERT TO VERIFY FRIEND");
+                    String id1 = input.next();
+                    User user1 = peer.get(id1);
+                    // boolean x = Functions.weAreFriends(peer._user, user1);
+                    System.out.println("Stringhe da conforntare \n ");
+                    Functions.showAnswers(peer._user._answers);
+                    Functions.showAnswers(user1._answers);
+                    if (Functions.weAreFriends(peer._user, user1)) {
+                        System.out.println(peer._user.userName + " AND " + user1.userName + "Are friend...");
+
+                    } else {
+                        System.out.println(peer._user.userName + " AND " + user1.userName + "Are Not friend...");
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -60,7 +79,8 @@ public final class App {
         System.out.println("WELCOME TO SOCIAL");
         System.out.println("<-----------MENU--------->");
         System.out.println("1 - ACCESSO AL SOCIAL");
-        System.out.println("2 - ALTRO");
+        System.out.println("2 - GET USERNAME");
+        System.out.println("3 - WE ARE FRIEND?");
         System.out.println("0 - USCIRE");
 
     }

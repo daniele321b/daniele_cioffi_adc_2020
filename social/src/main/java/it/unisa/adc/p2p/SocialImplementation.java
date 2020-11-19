@@ -16,28 +16,29 @@ import net.tomp2p.rpc.ObjectDataReply;
 import net.tomp2p.storage.Data;
 
 public class SocialImplementation implements SocialInterface {
-    final private Peer peer;
+
     String _profile_key = new String();
     String _nick_name = new String();
 
-    public List<String> _friends = new ArrayList<String>();
+    // public List<String> _friends = new ArrayList<String>();
+    // HashSet<PeerAddress> _friends;
     public List<String> _questions = new ArrayList<String>();
-    public List<Integer> _answers = new ArrayList<Integer>();
 
-    // final private Peer peer;
     final private PeerDHT _dht;
+    final private Peer peer;
     final private int DEFAULT_MASTER_PORT = 4000;
 
-    int id;
-    String peer1;
+    // public int id;
+
     String profile_key;
 
     // final private ArrayList<String> s_topics = new ArrayList<String>();
-    final private User user = new User();
+    User _user = new User();
 
     public SocialImplementation(int peerId, String masterId) throws Exception {
         peer = new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT + peerId).start();
         _dht = new PeerBuilderDHT(peer).start();
+        _user.setId(peerId);
 
         FutureBootstrap fb = this.peer.bootstrap().inetAddress(InetAddress.getByName(masterId))
                 .ports(DEFAULT_MASTER_PORT).start();
@@ -47,20 +48,31 @@ public class SocialImplementation implements SocialInterface {
         }
     }
 
-    // public String get(String name) throws ClassNotFoundException, IOException {
-    // FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
-    // futureGet.awaitUninterruptibly();
-    // if (futureGet.isSuccess()) {
-    // return futureGet.dataMap().values().iterator().next().object().toString();
-    // }
-    // return "not found";
-    // }
+    public void store(String name, String nickname) throws IOException {
+        _user.setUserName(nickname);
+        _dht.put(Number160.createHash(name)).data(new Data(_user)).start().awaitUninterruptibly();
+        // System.out.print("STORE OF " + _user.userName);
+
+    }
+
     public User get(String name) throws ClassNotFoundException, IOException {
         FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
         futureGet.awaitUninterruptibly();
         if (futureGet.isSuccess()) {
             // return futureGet.dataMap().values().iterator().next().object().toString();
             return (User) futureGet.dataMap().values().iterator().next().object();
+        }
+        return null;
+    }
+
+    public String getUsername(String name) throws ClassNotFoundException, IOException {
+        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+        futureGet.awaitUninterruptibly();
+        if (futureGet.isSuccess()) {
+            // return futureGet.dataMap().values().iterator().next().object().toString();
+            User main = (User) futureGet.dataMap().values().iterator().next().object();
+            // System.out.print("GET OF " + main.userName);
+            return main.userName;
         }
         return null;
     }
@@ -72,11 +84,14 @@ public class SocialImplementation implements SocialInterface {
 
     // }
 
-    public void store(String name, User _user_) throws IOException {
-
-        _dht.put(Number160.createHash(name)).data(new Data(_user_)).start().awaitUninterruptibly();
-
-    }
+    // public String get(String name) throws ClassNotFoundException, IOException {
+    // FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+    // futureGet.awaitUninterruptibly();
+    // if (futureGet.isSuccess()) {
+    // return futureGet.dataMap().values().iterator().next().object().toString();
+    // }
+    // return "not found";
+    // }
 
     @Override
     public List<String> getUserProfileQuestions() {
@@ -104,16 +119,17 @@ public class SocialImplementation implements SocialInterface {
         // this.profile_key = _profile_key;
         // return _profile_key;
 
-        try {
-            FutureGet futureGet = _dht.get(Number160.createHash(peer1)).start();
-            futureGet.awaitUninterruptibly();
-            if (futureGet.isSuccess() && futureGet.isEmpty())
-                _dht.put(Number160.createHash(peer1)).data(new Data(new HashSet<PeerAddress>())).start()
-                        .awaitUninterruptibly();
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        // FutureGet futureGet = _dht.get(Number160.createHash(peer1)).start();
+        // futureGet.awaitUninterruptibly();
+        // if (futureGet.isSuccess() && futureGet.isEmpty())
+        // _dht.put(Number160.createHash(peer1)).data(new Data(new
+        // HashSet<PeerAddress>())).start()
+        // .awaitUninterruptibly();
+        // return null;
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
         return null;
 
     }
@@ -131,26 +147,9 @@ public class SocialImplementation implements SocialInterface {
 
     @Override
     public List<String> getFriends() {
-        // Object _obj;
-        // try {
-        // FutureGet futureGet = _dht.get(Number160.createHash(_profile_key)).start();
-        // futureGet.awaitUninterruptibly();
-        // if (futureGet.isSuccess()) {
-        // HashSet<PeerAddress> peers_on_topic;
-        // peers_on_topic = (HashSet<PeerAddress>)
-        // futureGet.dataMap().values().iterator().next().object();
-        // // for (PeerAddress peer : peers_on_topic) {
-        // // FutureDirect futureDirect =
-        // // _dht.peer().sendDirect(peer).object(_obj).start();
-        // // // futureDirect.awaitUninterruptibly();
 
-        // // _friends.add(futureDirect.toString()); }
+        return null;
 
-        // }
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
-        return _friends;
     }
 
 }
