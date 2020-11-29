@@ -34,6 +34,16 @@ public class Functions {
         System.out.println("\n");
     }
 
+    public static void showFriends(List<String> _friends) {
+
+        int i, n = _friends.size();
+        System.out.println("Friends List");
+        for (i = 0; i < n; i++) {
+            System.out.println(i + 1 + ". " + _friends.get(i));
+        }
+
+    }
+
     public static boolean validateInt(int n) {
         if (n == 0 || n == 1)
             return true;

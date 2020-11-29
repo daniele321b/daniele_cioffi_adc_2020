@@ -24,6 +24,8 @@ public final class App {
         System.out.println("1 - ACCESSO AL SOCIAL");
         System.out.println("2 - GET USERNAME");
         System.out.println("3 - WE ARE FRIEND?");
+        System.out.println("4 - SEARCH FRIEND?");
+        System.out.println("5 - GET FRIEND?");
         System.out.println("0 - USCIRE");
 
     }
@@ -39,7 +41,7 @@ public final class App {
         String s2 = peer.createAuserProfileKey(peer._user._answers);
         System.out.println("UserProfileKey: " + s2);
         while (true) {
-
+            FunctionsPeer.searchFriend(peer);
             peer.getFriends();
         }
 
@@ -105,6 +107,12 @@ public final class App {
                         System.out.println("NO ID");
                     }
 
+                    break;
+                case 4:
+                    FunctionsPeer.searchFriend(peer);
+                    break;
+                case 5:
+                    Functions.showFriends(peer.getFriends());
                     break;
 
                 default:

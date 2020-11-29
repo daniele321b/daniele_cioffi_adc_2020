@@ -17,8 +17,8 @@ import net.tomp2p.storage.Data;
 
 public class SocialImplementation implements SocialInterface {
 
-    String _profile_key = new String();
-    String _nick_name = new String();
+    // String _profile_key = new String();
+    // String _nick_name = new String();
 
     // public List<String> _friends = new ArrayList<String>();
     // HashSet<PeerAddress> _friends;
@@ -140,9 +140,7 @@ public class SocialImplementation implements SocialInterface {
 
     @Override
     public List<String> getFriends() {
-
-        return null;
-
+        return _user.friends;
     }
 
 }

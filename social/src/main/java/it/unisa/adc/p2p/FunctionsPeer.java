@@ -16,34 +16,32 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
 
 public class FunctionsPeer {
-    public static String searchFriend(SocialImplementation my) throws Exception {
-        String key = new String();
+    public static void searchFriend(SocialImplementation peer) throws Exception {
+        // String key = new String();
         String id = new String();
-        String namePeer = new String();
-        User userS;
 
         // get firends
 
         for (int i = 0; i < 1000; i++) {
             id = "id" + i;
-            namePeer = my.getUsername(id);
-            System.out.println("userName: " + namePeer);
-            userS = my.get(id);
-            // System.out.println("Stringhe da conforntare \n ");
-            // Functions.showAnswers(my._user._answers);
-            // Functions.showAnswers(userS._answers);
-            if (Functions.weAreFriends(my._user, userS)) {
-                System.out.println(my._user.userName + " AND " + userS.userName + "Are friend...");
-                my._user.friends.add(namePeer);
-                SocialImplementation newPeer = new SocialImplementation(i, "127.0.0.1");
 
-            } else {
-                System.out.println(my._user.userName + " AND " + userS.userName + "Are Not friend...");
+            try {
+                User user0 = peer.get(id);
+                System.out.println("userName " + user0.userName);
+
+                if (Functions.weAreFriends(peer._user, user0)) {
+                    System.out.println(peer._user.userName + " AND " + user0.userName + "Are friend...");
+                    peer._user.friends.add(user0.userName);
+                    SocialImplementation peer1 = new SocialImplementation(i, "127.0.0.1");
+                    peer1._user.friends.add(peer._user.userName);
+                }
+
+            } catch (NoSuchElementException elementException) {
+                // System.out.println("NO ID");
             }
 
         }
 
-        return key;
     }
 
 }
