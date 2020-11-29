@@ -11,8 +11,8 @@ import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.rpc.ObjectDataReply;
+// import net.tomp2p.peers.PeerAddress;
+// import net.tomp2p.rpc.ObjectDataReply;
 import net.tomp2p.storage.Data;
 
 public class SocialImplementation implements SocialInterface {
@@ -95,11 +95,13 @@ public class SocialImplementation implements SocialInterface {
 
     @Override
     public List<String> getUserProfileQuestions() {
+        System.out.println("ANSWER THE FOLLOWING QUESTIONS");
+        System.out.println("Answer with code 1 for YES, 0 for NOT");
         _questions.add("I have a kind word for everyone. ");
         _questions.add("I feel comfortable around people. ");
         _questions.add("I believe in the importance of art. ");
-        // _questions.add("I make friends easily. ");
-        // _questions.add("There are many things that I do not like about myself. ");
+        _questions.add("I make friends easily. ");
+        _questions.add("There are many things that I do not like about myself. ");
         // _questions.add("It’s important to me that people are on time. ");
         // _questions.add("I have a vivid imagination. ");
         // _questions.add("I make plans and stick to them. ");
@@ -113,24 +115,15 @@ public class SocialImplementation implements SocialInterface {
     }
 
     @Override
-    public String createAuserProfileKey(List<Integer> _answer) {
-
-        // this._answers = _answer;
-        // this.profile_key = _profile_key;
-        // return _profile_key;
-
-        // try {
-        // FutureGet futureGet = _dht.get(Number160.createHash(peer1)).start();
-        // futureGet.awaitUninterruptibly();
-        // if (futureGet.isSuccess() && futureGet.isEmpty())
-        // _dht.put(Number160.createHash(peer1)).data(new Data(new
-        // HashSet<PeerAddress>())).start()
-        // .awaitUninterruptibly();
-        // return null;
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
-        return null;
+    public String createAuserProfileKey(List<Integer> _answers) {
+        Random r = new Random();
+        String alphabet = "abcdefghijklmnopqrstuvwyxz";
+        int i, n = _answers.size();
+        String profileKey = new String();
+        for (i = 0; i < n; i++) {
+            profileKey = profileKey + _answers.get(i) + alphabet.charAt(r.nextInt(alphabet.length()));
+        }
+        return profileKey;
 
     }
 

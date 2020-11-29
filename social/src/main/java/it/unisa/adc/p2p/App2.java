@@ -1,6 +1,5 @@
 package it.unisa.adc.p2p;
 
-import java.io.IOException;
 import java.util.*;
 
 /**

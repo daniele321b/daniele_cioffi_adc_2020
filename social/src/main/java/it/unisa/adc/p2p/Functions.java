@@ -8,7 +8,7 @@ public class Functions {
 
     public static void getAnswers(List<String> _questionsList, List<Integer> _answersList) {
         int i, a, n = _questionsList.size();
-        System.out.println("Answer the following questions(with code 1 for Yes, 0 for NOT)");
+
         for (i = 0; i < n; i++) {
 
             do {
