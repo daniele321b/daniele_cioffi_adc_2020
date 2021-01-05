@@ -1,4 +1,4 @@
-package it.unisa.adc.p2p;
+package it.unisa.adc.p2p.interfaces;
 
 import java.util.List;
 
