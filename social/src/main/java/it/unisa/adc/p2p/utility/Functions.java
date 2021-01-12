@@ -45,6 +45,7 @@ public class Functions {
     }
 
     public static boolean validateInt(int n) {
+
         if (n == 0 || n == 1)
             return true;
         else
