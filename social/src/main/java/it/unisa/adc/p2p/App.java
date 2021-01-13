@@ -16,7 +16,7 @@ import net.tomp2p.nat.PeerBuilderNAT;
 public class App {
     protected static SocialImplementation peer;
     static Scanner input = new Scanner(System.in);
-
+    static List<String> list = new ArrayList<String>();
     // come prova
 
     public static void main(String[] args) throws Exception, NumberFormatException {
@@ -33,9 +33,8 @@ public class App {
         System.out.println(peer.join(user, s));
         System.out.println("Ora cerco!");
         s = input.nextLine();
-        System.out.println(peer.get(s).toString());
         System.out.println(peer.get(s).getNickName());
-        peer.getFriends();
+        list = peer.getFriends();
 
     }
 
