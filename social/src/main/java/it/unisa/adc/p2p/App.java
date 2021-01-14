@@ -35,7 +35,7 @@ public class App {
         s = input.nextLine();
         System.out.println(peer.get(s).getNickName());
         list = peer.getFriends();
-
+        System.out.println(list);
     }
 
     public static void showString(List<String> lista) {

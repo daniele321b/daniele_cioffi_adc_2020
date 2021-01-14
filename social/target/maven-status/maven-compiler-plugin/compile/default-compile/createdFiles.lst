@@ -1,5 +1,6 @@
 it\unisa\adc\p2p\interfaces\MessageListener.class
 it\unisa\adc\p2p\App.class
+it\unisa\adc\p2p\object\User.class
 it\unisa\adc\p2p\SocialImplementation.class
 it\unisa\adc\p2p\interfaces\SocialInterface.class
 it\unisa\adc\p2p\utility\Functions.class

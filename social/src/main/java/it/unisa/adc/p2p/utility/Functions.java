@@ -52,4 +52,15 @@ public class Functions {
             return false;
     }
 
+    public static boolean checkExistence(List<String> list, String check) {
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == check) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.util.*;
 
 import net.tomp2p.dht.FutureGet;
+import net.tomp2p.dht.FutureSend;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.futures.FutureBootstrap;
@@ -50,7 +51,10 @@ public class SocialImplementation implements SocialInterface {
                 FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
                 futureGet.awaitUninterruptibly();
                 if (futureGet.isSuccess() && futureGet.isEmpty())
-                    _dht.put(Number160.createHash("allpeers")).data(new Data(new HashSet<PeerAddress>())).start()
+                    // _dht.put(Number160.createHash("allpeers")).data(new Data(new
+                    // HashSet<PeerAddress>())).start()
+                    // .awaitUninterruptibly();
+                    _dht.put(Number160.createHash("allpeers")).data(new Data(new ArrayList<String>())).start()
                             .awaitUninterruptibly();
                 System.out.println("Eseguo la creazione della lista");
             } catch (Exception e) {
@@ -101,10 +105,20 @@ public class SocialImplementation implements SocialInterface {
             if (futureGet.isSuccess()) {
                 if (futureGet.isEmpty())
                     return false;
-                HashSet<PeerAddress> peers_on_social;
-                peers_on_social = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+                // HashSet<PeerAddress> peers_on_social;
+                // peers_on_social = (HashSet<PeerAddress>)
+                // futureGet.dataMap().values().iterator().next().object();
+                List<String> peers_on_social;
+                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
                 // mi aggiungo alla lista
-                peers_on_social.add(_dht.peer().peerAddress());
+                // peers_on_social.add(_dht.peer().peerAddress());
+
+                if (Functions.checkExistence(peers_on_social, _user.getProfileKey())) {
+                    peers_on_social.add(_user.getProfileKey());
+                } else {
+                    return false;
+                }
+
                 _dht.put(Number160.createHash("allpeers")).data(new Data(peers_on_social)).start()
                         .awaitUninterruptibly();
                 return true;
@@ -121,11 +135,18 @@ public class SocialImplementation implements SocialInterface {
             FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
             futureGet.awaitUninterruptibly();
             if (futureGet.isSuccess()) {
-                HashSet<PeerAddress> peers_on_topic;
-                peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-                for (PeerAddress peer : peers_on_topic) {
-                    FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
-                    futureDirect.awaitUninterruptibly();
+                // HashSet<PeerAddress> peers_on_social;
+                // peers_on_social = (HashSet<PeerAddress>)
+                // futureGet.dataMap().values().iterator().next().object();
+                List<String> peers_on_social;
+                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+                for (int i = 0; i < peers_on_social.size(); i++) {
+                    // FutureDirect futureDirect =
+                    // _dht.peer().sendDirect(Number160.createHash(peers_on_social.get(i)))
+                    // .object(_obj).start();
+                    FutureDirect futureDirect = _dht.peer()
+                            .sendDirect(_dht.get(Number160.createHash(peers_on_social.get(i))).).object("friends")
+                            .start();
                 }
 
                 return true;
@@ -178,10 +199,13 @@ public class SocialImplementation implements SocialInterface {
             if (futureGet.isSuccess()) {
                 if (futureGet.isEmpty())
                     return null;
-                HashSet<PeerAddress> peers_on_social;
-                peers_on_social = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-                for (PeerAddress peer : peers_on_social) {
-                    FutureGet fGet = _dht.get(peer.peerId()).start();
+                // HashSet<PeerAddress> peers_on_social;
+                // peers_on_social = (HashSet<PeerAddress>)
+                // futureGet.dataMap().values().iterator().next().object();
+                List<String> peers_on_social;
+                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+                for (String peer : peers_on_social) {
+                    FutureGet fGet = _dht.get(Number160.createHash(peer)).start();
                     fGet.awaitUninterruptibly();
                     u = (User) fGet.dataMap().values().iterator().next().object();
                     list.add(u.getNickName());
