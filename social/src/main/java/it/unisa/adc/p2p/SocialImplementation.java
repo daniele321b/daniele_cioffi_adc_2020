@@ -28,7 +28,6 @@ public class SocialImplementation implements SocialInterface {
     final private int DEFAULT_MASTER_PORT = 4000;
     String myKey;
     private static int peerId;
-    private HashSet<String> myFriends = new HashSet<>();
     User _user = new User();
 
     public SocialImplementation(int _id, String _master_peer, final MessageListener _listener) throws Exception {
@@ -44,30 +43,27 @@ public class SocialImplementation implements SocialInterface {
         } else {
             throw new Exception("Error in master peer bootstrap.");
         }
-
-        // sono il master
-        if (_id == 0) {
-            try {
-                FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
-                futureGet.awaitUninterruptibly();
-                if (futureGet.isSuccess() && futureGet.isEmpty())
-                    // _dht.put(Number160.createHash("allpeers")).data(new Data(new
-                    // HashSet<PeerAddress>())).start()
-                    // .awaitUninterruptibly();
-                    _dht.put(Number160.createHash("allpeers")).data(new Data(new ArrayList<String>())).start()
-                            .awaitUninterruptibly();
-                System.out.println("Eseguo la creazione della lista");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
+        creatPeerAddressList();
 
         peer.objectDataReply(new ObjectDataReply() {
             public Object reply(PeerAddress sender, Object request) throws Exception {
                 return _listener.parseMessage(request);
             }
         });
+    }
+
+    public void creatPeerAddressList() {
+        try {
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess() && futureGet.isEmpty())
+                _dht.put(Number160.createHash("peerAddress")).data(new Data(new HashMap<PeerAddress, String>())).start()
+                        .awaitUninterruptibly();
+            System.out.println("Eseguo la creazione della lista degli address");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public List<String> getUserProfileQuestions() {
@@ -98,64 +94,28 @@ public class SocialImplementation implements SocialInterface {
         // return null;
     }
 
-    public boolean signIn() {
-        try {
-            FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
-            futureGet.awaitUninterruptibly();
-            if (futureGet.isSuccess()) {
-                if (futureGet.isEmpty())
-                    return false;
-                // HashSet<PeerAddress> peers_on_social;
-                // peers_on_social = (HashSet<PeerAddress>)
-                // futureGet.dataMap().values().iterator().next().object();
-                List<String> peers_on_social;
-                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
-                // mi aggiungo alla lista
-                // peers_on_social.add(_dht.peer().peerAddress());
-
-                if (Functions.checkExistence(peers_on_social, _user.getProfileKey())) {
-                    peers_on_social.add(_user.getProfileKey());
-                } else {
-                    return false;
-                }
-
-                _dht.put(Number160.createHash("allpeers")).data(new Data(peers_on_social)).start()
-                        .awaitUninterruptibly();
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return false;
-    }
-
     public boolean sendNotification(Object _obj) {
         try {
-            FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
             futureGet.awaitUninterruptibly();
             if (futureGet.isSuccess()) {
-                // HashSet<PeerAddress> peers_on_social;
-                // peers_on_social = (HashSet<PeerAddress>)
-                // futureGet.dataMap().values().iterator().next().object();
-                List<String> peers_on_social;
-                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
-                for (int i = 0; i < peers_on_social.size(); i++) {
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                for (PeerAddress peer : peers_on_social.keySet()) {
                     // FutureDirect futureDirect =
-                    // _dht.peer().sendDirect(Number160.createHash(peers_on_social.get(i)))
-                    // .object(_obj).start();
-                    FutureDirect futureDirect = _dht.peer()
-                            .sendDirect(_dht.get(Number160.createHash(peers_on_social.get(i))).).object("friends")
-                            .start();
-                }
+                    // _dht.peer().sendDirect(peer).object(_obj).start();
+                    // futureDirect.awaitUninterruptibly();
+                    System.out.println("stampo in send" + peers_on_social.get(peer));
+                    System.out.println("print");
 
+                }
                 return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
-
     }
 
     public boolean join(String _profile_key, String _nick_name) {
@@ -168,53 +128,72 @@ public class SocialImplementation implements SocialInterface {
                 // entro nella rete inserendo una risorsa (Mio oggetto)
                 _dht.put(Number160.createHash(_profile_key)).data(new Data(_user)).start().awaitUninterruptibly();
                 // mi iscrivo alla lista dei peer presenti nel sistema
-                try {
-                    signIn();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                // invio a tutti i peers nel social che sono entrato e potremmo essere FRIENDS
-                try {
-                    sendNotification("Likely-friends");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            }
+            futureGet = _dht.get(Number160.createHash("peerAddress")).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess()) {
+                if (futureGet.isEmpty())
+                    return false;
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                // // mi aggiungo alla lista
+                peers_on_social.put(_dht.peer().peerAddress(), _user.getProfileKey());
+                System.out.println("Stampo in join ->>" + peers_on_social.get(_dht.peer().peerAddress()));
+                _dht.put(Number160.createHash("peerAddress")).data(new Data(peers_on_social)).start()
+                        .awaitUninterruptibly();
+                sendNotification("send");
             }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
-
     }
 
-    public List<String> getFriends() {
-        System.out.println("get friends");
-        List<String> list = new ArrayList<String>();
+    public List<User> getPeersObject() {
+        // System.out.println("get friends");
+        List<User> list = new ArrayList<User>();
         User u;
-
         try {
-            FutureGet futureGet = _dht.get(Number160.createHash("allpeers")).start();
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
             futureGet.awaitUninterruptibly();
             if (futureGet.isSuccess()) {
                 if (futureGet.isEmpty())
                     return null;
-                // HashSet<PeerAddress> peers_on_social;
-                // peers_on_social = (HashSet<PeerAddress>)
-                // futureGet.dataMap().values().iterator().next().object();
-                List<String> peers_on_social;
-                peers_on_social = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
-                for (String peer : peers_on_social) {
-                    FutureGet fGet = _dht.get(Number160.createHash(peer)).start();
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                System.out.println("is empty: -> " + peers_on_social.isEmpty());
+                for (PeerAddress peer : peers_on_social.keySet()) {
+                    System.out.println("sto in get" + peers_on_social.get(peer));
+                    FutureGet fGet = _dht.get(Number160.createHash(peers_on_social.get(peer))).start();
                     fGet.awaitUninterruptibly();
                     u = (User) fGet.dataMap().values().iterator().next().object();
-                    list.add(u.getNickName());
+                    System.out.println("user---->" + u.getNickName());
+                    list.add(u);
                 }
             }
-            System.out.println("Termino get friends");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return list;
+    }
+
+    public List<String> getFriends() {
+
+        List<User> list_users = getPeersObject();
+        List<String> list = new ArrayList<String>();
+        for (User u : list_users) {
+            // if (Functions.weAreFriends(_user, u)) {
+            list.add(u.getNickName());
+        }
+        // }
+        // _user.setFriends(list);
+        // if (!list.isEmpty())
+        // return list;
+        // else
+        // return null;
         return list;
 
     }
@@ -228,24 +207,26 @@ public class SocialImplementation implements SocialInterface {
         return null;
     }
 
-    public boolean leaveNetwork() {
-        try {
-            FutureGet futureGet = _dht.get(Number160.createHash(0)).start();
-            futureGet.awaitUninterruptibly();
-            if (futureGet.isSuccess()) {
-                if (futureGet.isEmpty())
-                    return false;
-                HashSet<PeerAddress> peers_on_social;
-                peers_on_social = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-                peers_on_social.remove(_dht.peer().peerAddress());
-                _dht.put(Number160.createHash(0)).data(new Data(peers_on_social)).start().awaitUninterruptibly();
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    // public boolean leaveNetwork() {
+    // try {
+    // FutureGet futureGet = _dht.get(Number160.createHash(0)).start();
+    // futureGet.awaitUninterruptibly();
+    // if (futureGet.isSuccess()) {
+    // if (futureGet.isEmpty())
+    // return false;
+    // HashSet<PeerAddress> peers_on_social;
+    // peers_on_social = (HashSet<PeerAddress>)
+    // futureGet.dataMap().values().iterator().next().object();
+    // peers_on_social.remove(_dht.peer().peerAddress());
+    // _dht.put(Number160.createHash(0)).data(new
+    // Data(peers_on_social)).start().awaitUninterruptibly();
+    // return true;
+    // }
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // return false;
 
-    }
+    // }
 
 }

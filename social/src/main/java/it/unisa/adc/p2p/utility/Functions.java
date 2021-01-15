@@ -2,6 +2,7 @@ package it.unisa.adc.p2p.utility;
 
 import java.util.List;
 import java.util.Scanner;
+import it.unisa.adc.p2p.object.*;
 
 public class Functions {
     static Scanner input = new Scanner(System.in);
@@ -61,6 +62,25 @@ public class Functions {
         }
 
         return true;
+    }
+
+    public static boolean weAreFriends(User p1, User p2) {
+        int count = 0, a, b, i, n = p1._answers.size();
+        for (i = 0; i < n; i++) {
+            a = p1._answers.get(i);
+            b = p2._answers.get(i);
+            if (a == b) {
+                // System.out.println(a + " == " + b);
+                count++;
+            } else {
+                // System.out.println(a + " != " + b);
+            }
+
+        }
+        if (count > 2)
+            return true;
+        else
+            return false;
     }
 
 }
