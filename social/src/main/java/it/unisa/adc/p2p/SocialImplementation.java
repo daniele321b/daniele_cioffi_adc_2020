@@ -59,7 +59,7 @@ public class SocialImplementation implements SocialInterface {
             if (futureGet.isSuccess() && futureGet.isEmpty())
                 _dht.put(Number160.createHash("peerAddress")).data(new Data(new HashMap<PeerAddress, String>())).start()
                         .awaitUninterruptibly();
-            System.out.println("Eseguo la creazione della lista degli address");
+            // System.out.println("Eseguo la creazione della lista degli address");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class SocialImplementation implements SocialInterface {
         }
         this.myKey = sb.toString();
         return sb.toString();
-        // return null;
+
     }
 
     public boolean sendNotification(Object _obj) {
@@ -103,11 +103,10 @@ public class SocialImplementation implements SocialInterface {
                 peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
                         .object();
                 for (PeerAddress peer : peers_on_social.keySet()) {
-                    // FutureDirect futureDirect =
-                    // _dht.peer().sendDirect(peer).object(_obj).start();
-                    // futureDirect.awaitUninterruptibly();
-                    System.out.println("stampo in send" + peers_on_social.get(peer));
-                    System.out.println("print");
+                    FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
+                    futureDirect.awaitUninterruptibly();
+                    // System.out.println("stampo in send" + peers_on_social.get(peer));
+                    // System.out.println("print");
 
                 }
                 return true;
@@ -139,7 +138,8 @@ public class SocialImplementation implements SocialInterface {
                         .object();
                 // // mi aggiungo alla lista
                 peers_on_social.put(_dht.peer().peerAddress(), _user.getProfileKey());
-                System.out.println("Stampo in join ->>" + peers_on_social.get(_dht.peer().peerAddress()));
+                // System.out.println("Stampo in join ->>" +
+                // peers_on_social.get(_dht.peer().peerAddress()));
                 _dht.put(Number160.createHash("peerAddress")).data(new Data(peers_on_social)).start()
                         .awaitUninterruptibly();
                 sendNotification("send");
@@ -164,13 +164,13 @@ public class SocialImplementation implements SocialInterface {
                 HashMap<PeerAddress, String> peers_on_social;
                 peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
                         .object();
-                System.out.println("is empty: -> " + peers_on_social.isEmpty());
+                // System.out.println("is empty: -> " + peers_on_social.isEmpty());
                 for (PeerAddress peer : peers_on_social.keySet()) {
-                    System.out.println("sto in get" + peers_on_social.get(peer));
+                    // System.out.println("sto in get" + peers_on_social.get(peer));
                     FutureGet fGet = _dht.get(Number160.createHash(peers_on_social.get(peer))).start();
                     fGet.awaitUninterruptibly();
                     u = (User) fGet.dataMap().values().iterator().next().object();
-                    System.out.println("user---->" + u.getNickName());
+                    // System.out.println("user---->" + u.getNickName());
                     list.add(u);
                 }
             }
@@ -185,15 +185,13 @@ public class SocialImplementation implements SocialInterface {
         List<User> list_users = getPeersObject();
         List<String> list = new ArrayList<String>();
         for (User u : list_users) {
-            // if (Functions.weAreFriends(_user, u)) {
-            list.add(u.getNickName());
+            if (Functions.weAreFriends(_user, u)) {
+                list.add(u.getNickName());
+            }
         }
-        // }
-        // _user.setFriends(list);
-        // if (!list.isEmpty())
-        // return list;
-        // else
-        // return null;
+
+        _user.setFriends(list);
+
         return list;
 
     }
@@ -207,26 +205,78 @@ public class SocialImplementation implements SocialInterface {
         return null;
     }
 
-    // public boolean leaveNetwork() {
-    // try {
-    // FutureGet futureGet = _dht.get(Number160.createHash(0)).start();
-    // futureGet.awaitUninterruptibly();
-    // if (futureGet.isSuccess()) {
-    // if (futureGet.isEmpty())
-    // return false;
-    // HashSet<PeerAddress> peers_on_social;
-    // peers_on_social = (HashSet<PeerAddress>)
-    // futureGet.dataMap().values().iterator().next().object();
-    // peers_on_social.remove(_dht.peer().peerAddress());
-    // _dht.put(Number160.createHash(0)).data(new
-    // Data(peers_on_social)).start().awaitUninterruptibly();
-    // return true;
-    // }
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return false;
+    public boolean leaveNetwork() {
+        try {
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess()) {
+                if (futureGet.isEmpty())
+                    return false;
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                peers_on_social.remove(_dht.peer().peerAddress());
+                _dht.put(Number160.createHash("peerAddress")).data(new Data(peers_on_social)).start()
+                        .awaitUninterruptibly();
+                _dht.peer().announceShutdown().start().awaitUninterruptibly();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-    // }
+    public User searchUser(String nickname) {
+        User u, search = new User();
+        try {
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess()) {
+                if (futureGet.isEmpty())
+                    return null;
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                for (PeerAddress peer : peers_on_social.keySet()) {
+                    FutureGet fGet = _dht.get(Number160.createHash(peers_on_social.get(peer))).start();
+                    fGet.awaitUninterruptibly();
+                    u = (User) fGet.dataMap().values().iterator().next().object();
+                    if (u.getNickName().equals(nickname)) {
+                        search = u;
+                    }
+                }
+            }
+            return search;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return search;
+    }
+
+    public boolean sendDirectMessage(String nickname, Object _obj) {
+        User u = searchUser(nickname);
+        try {
+            FutureGet futureGet = _dht.get(Number160.createHash("peerAddress")).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess()) {
+                HashMap<PeerAddress, String> peers_on_social;
+                peers_on_social = (HashMap<PeerAddress, String>) futureGet.dataMap().values().iterator().next()
+                        .object();
+                for (PeerAddress peer : peers_on_social.keySet()) {
+                    if (peers_on_social.get(peer).equals(u.getProfileKey())) {
+                        FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
+                        futureDirect.awaitUninterruptibly();
+                        break;
+                    }
+                }
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 }
