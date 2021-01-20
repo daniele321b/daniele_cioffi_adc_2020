@@ -1,6 +1,7 @@
 package it.unisa.adc.p2p.utility;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import it.unisa.adc.p2p.object.*;
 
@@ -56,7 +57,7 @@ public class Functions {
     public static boolean checkExistence(List<String> list, String check) {
 
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == check) {
+            if (list.get(i).equals(check)) {
                 return false;
             }
         }
@@ -66,15 +67,16 @@ public class Functions {
 
     public static boolean weAreFriends(User p1, User p2) {
         int count = 0, a, b, i, n = p1._answers.size();
-        for (i = 0; i < n; i++) {
-            if (!p1.getProfileKey().equals(p2.getProfileKey())) {
+        if (!p1.getProfileKey().equals(p2.getProfileKey())) {
+            for (i = 0; i < n; i++) {
+
                 a = p1._answers.get(i);
                 b = p2._answers.get(i);
                 if (a == b) {
-                    // System.out.println(a + " == " + b);
+                    System.out.println(a + " == " + b);
                     count++;
                 } else {
-                    // System.out.println(a + " != " + b);
+                    System.out.println(a + " != " + b);
                 }
             }
         }
@@ -82,5 +84,26 @@ public class Functions {
             return true;
         else
             return false;
+    }
+
+    public static String createKey(List<Integer> _answer) {
+        final Random rand = new Random();
+        char[] alphabet = new char[26];
+        for (int i = 0; i < 26; i++) {
+            alphabet[i] = (char) (97 + i);
+        }
+
+        StringBuilder sb = new StringBuilder(10);
+        while (sb.length() < 10) {
+            char ch = alphabet[rand.nextInt(26)];
+            if (sb.length() > 0) {
+                if (sb.charAt(sb.length() - 1) != ch) {
+                    sb.append(ch);
+                }
+            } else {
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
     }
 }

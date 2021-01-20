@@ -50,4 +50,8 @@ public class User implements Serializable {
         this._answers = _answers;
     }
 
+    public void printUser() {
+        System.out.println("NICKNAME: " + getNickName());
+        System.out.println("CHIAVE PROFILO: " + getProfileKey());
+    }
 }

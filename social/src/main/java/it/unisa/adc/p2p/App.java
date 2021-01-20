@@ -39,7 +39,7 @@ public class App {
             System.out.println("<<<-----------1 cerca peer tramite Profile key----------->>>");
             System.out.println("<<<-----------2 visualizza amici----------->>>");
             System.out.println("<<<-----------3 Esci----------->>>");
-            System.out.println("<<<-----------4 Send----------->>>");
+            System.out.println("<<<-----------4 Search for nickname----------->>>");
             m = input.nextInt();
 
             switch (m) {
@@ -51,21 +51,25 @@ public class App {
                 case 2:
                     System.out.println("Friends!");
                     list = peer.getFriends();
-                    // System.out.println("list->" + list);
-                    System.out.println("user->" + peer._user.getFriends());
+                    System.out.println("list ->>" + list);
+                    System.out.println("user_list ->" + peer._user.getFriends());
                     break;
                 case 3:
                     System.out.println("Leave Network");
                     peer.leaveNetwork();
                     break;
                 case 4:
-                    System.out.println("Send message");
+                    System.out.println("Search username");
                     System.out.println("Insert nick");
                     String n = input.next();
-                    peer.sendDirectMessage(n, "Hello!");
+                    peer.searchUser(n);
+                    break;
+                case 5:
+                    // peer.getPeersObject();
+                    // peer.sendNotification("_obj");
                     break;
             }
-        } while (m != 0);
+        } while (m != 3);
     }
 
     public static void showString(List<String> lista) {
