@@ -20,8 +20,31 @@ public class App {
     // come prova
 
     public static void main(String[] args) throws Exception, NumberFormatException {
+
+        class MessageListenerImpl implements MessageListener {
+            int peerid;
+
+            public MessageListenerImpl(int peerid) {
+                this.peerid = peerid;
+
+            }
+
+            public Object parseMessage(Object obj) {
+
+                // TextIO textIO = TextIoFactory.getTextIO();
+                // TextTerminal terminal = textIO.getTextTerminal();
+                // terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
+                System.out.println(obj);
+                return "success";
+
+            }
+
+        }
+
         // final List<Integer> _answersList = new ArrayList<Integer>();
-        peer = new SocialImplementation(Integer.parseInt(args[0]), "127.0.0.1", null);
+        peer = new SocialImplementation(Integer.parseInt(args[0]), "127.0.0.1",
+                new MessageListenerImpl(Integer.parseInt(args[0])));
+
         System.out.println("<<<-----------WELCOME TO SOCIAL----------->>>");
         System.out.println("Peer number ----> " + args[0]);
         // Functions.getAnswers(peer.getUserProfileQuestions(), _answersList);
