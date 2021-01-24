@@ -2,6 +2,7 @@ package it.unisa.adc.p2p.interfaces;
 
 import java.util.List;
 
+/*Interface provided by the teacher containing the methods to be compulsorily implemented.*/
 public interface SocialInterface {
 
 	/**

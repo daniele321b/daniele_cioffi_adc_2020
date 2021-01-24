@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable {
-    /**
-     *
+    /*
+     * This class describes all the basic characteristics of a social user. An
+     * instance of this class will be populated by every peer present on the network
+     * and will be inserted into the network to make available the information
+     * contained in them. Therefore, both information referring directly to the user
+     * and information useful for the system and its operation will be available.
      */
     private static final long serialVersionUID = 1L;
     String nickName;
@@ -77,6 +81,9 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    /*
+     * This method allows you to return all user information as a single string.
+     */
     public String printUser() {
         return "NICKNAME: " + getNickName() + "\nCHIAVE PROFILO: " + getProfileKey() + "\nNAME: " + getName()
                 + "\nSURNAME: " + getSurname() + "\nAGE: " + getAge();

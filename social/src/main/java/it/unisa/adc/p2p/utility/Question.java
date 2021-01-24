@@ -3,6 +3,11 @@ package it.unisa.adc.p2p.utility;
 import java.util.ArrayList;
 import java.util.List;
 
+/* 
+* This class describes a list of questions. Unfortunately, these questions can only be added manually statically. 
+* The questions are used during the access procedures to the p2p network. 
+* The class has a single method that allows you to return a list of strings (questions).
+*/
 public class Question {
 
     public List<String> _questions = new ArrayList<String>();
@@ -24,6 +29,7 @@ public class Question {
 
     }
 
+    // This method returns a list of strings (questions).
     public List<String> getQuestions() {
         return _questions;
     }

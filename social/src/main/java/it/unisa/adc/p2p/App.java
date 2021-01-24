@@ -3,12 +3,9 @@ package it.unisa.adc.p2p;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
-
 import it.unisa.adc.p2p.interfaces.MessageListener;
 import it.unisa.adc.p2p.object.User;
 import it.unisa.adc.p2p.utility.Functions;
@@ -30,10 +27,10 @@ public class App {
 
             public Object parseMessage(Object obj) {
 
-                // TextIO textIO = TextIoFactory.getTextIO();
-                // TextTerminal terminal = textIO.getTextTerminal();
-                // terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
-                System.out.println(obj);
+                TextIO textIO = TextIoFactory.getTextIO();
+                TextTerminal terminal = textIO.getTextTerminal();
+                terminal.printf(obj + "\n");
+                // System.out.println(obj);
                 return "success";
 
             }
@@ -75,7 +72,10 @@ public class App {
                 case 1:
                     list = peer.getFriends();
                     if (list.size() != 0) {
-                        terminal.printf("FRIEND LIST [Nickname] ==>" + peer._user.getFriends() + "\n");
+                        // terminal.printf("FRIEND LIST [Nickname] ==>" + peer._user.getFriends() +
+                        // "\n");
+                        terminal.printf("FRIEND LIST [Nickname]: \n");
+                        Functions.showFriends(peer._user.getFriends());
                     } else {
                         terminal.printf("YOU DON'T HAVE FRIENDS\n");
                     }
