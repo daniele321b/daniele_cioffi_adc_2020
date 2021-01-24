@@ -11,6 +11,9 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     String nickName;
     String profileKey;
+    String name;
+    String surname;
+    int age;
     List<String> friends = new ArrayList<String>();
     public List<Integer> _answers = new ArrayList<Integer>();
 
@@ -50,8 +53,33 @@ public class User implements Serializable {
         this._answers = _answers;
     }
 
-    public void printUser() {
-        System.out.println("NICKNAME: " + getNickName());
-        System.out.println("CHIAVE PROFILO: " + getProfileKey());
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String printUser() {
+        return "NICKNAME: " + getNickName() + "\nCHIAVE PROFILO: " + getProfileKey() + "\nNAME: " + getName()
+                + "\nSURNAME: " + getSurname() + "\nAGE: " + getAge();
+    }
+
 }

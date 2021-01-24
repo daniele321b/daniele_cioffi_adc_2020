@@ -72,7 +72,12 @@ public class SocialImplementation implements SocialInterface {
     }
 
     public String createAuserProfileKey(List<Integer> _answer) {
-        myKey = Functions.createKey(_answer);
+        int success = 0;
+        do {
+            myKey = Functions.createKey(_answer);
+            if (validateKey(myKey))
+                success = 1;
+        } while (success != 1);
         return myKey;
     }
 
@@ -80,8 +85,11 @@ public class SocialImplementation implements SocialInterface {
         try {
 
             for (PeerAddress peer : hashMap.keySet()) {
-                FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
-                futureDirect.awaitUninterruptibly();
+                if (_dht.peerAddress() != peer) {
+                    FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
+                    futureDirect.awaitUninterruptibly();
+                }
+
             }
             // System.out.println("TRUE SEND NOTIFICATION");
             return true;
@@ -98,8 +106,10 @@ public class SocialImplementation implements SocialInterface {
             if (futureGet.isSuccess() && futureGet.isEmpty()) {
                 _user.setProfileKey(_profile_key);
                 _user.setNickName(_nick_name);
-                System.out
-                        .println("Dati che sto inserendo ----> " + _user.getProfileKey() + " e " + _user.getNickName());
+
+                // System.out
+                // .println("Dati che sto inserendo ----> " + _user.getProfileKey() + " e " +
+                // _user.getNickName());
                 // entro nella rete inserendo una risorsa (Mio oggetto)
                 _dht.put(Number160.createHash(_profile_key)).data(new Data(_user)).start().awaitUninterruptibly();
             }
@@ -114,7 +124,27 @@ public class SocialImplementation implements SocialInterface {
                 peers_on_social.put(_dht.peerAddress(), _user.getProfileKey());
                 _dht.put(Number160.createHash("peerAddress")).data(new Data(peers_on_social)).start()
                         .awaitUninterruptibly();
-                sendNotification(peers_on_social, "Likely Friend");
+                sendNotification(peers_on_social, _nick_name + " and YOU are Likely Friend");
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateData(String _profile_key, String _name, String _surname, int _age)
+            throws ClassNotFoundException, IOException {
+        User user = get(_profile_key);
+        user.setAge(_age);
+        user.setName(_name);
+        user.setSurname(_surname);
+        // System.out.println(user.printUser());
+        try {
+            FutureGet futureGet = _dht.get(Number160.createHash(_profile_key)).start();
+            futureGet.awaitUninterruptibly();
+            if (futureGet.isSuccess()) {
+                _dht.put(Number160.createHash(_profile_key)).data(new Data(user)).start().awaitUninterruptibly();
             }
             return true;
         } catch (Exception e) {
@@ -152,6 +182,26 @@ public class SocialImplementation implements SocialInterface {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean validateKey(String key) {
+        List<User> list_users = getPeersObject();
+        for (User u : list_users) {
+            if (u.getProfileKey().equals(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateNick(String nick) {
+        List<User> list_users = getPeersObject();
+        for (User u : list_users) {
+            if (u.getNickName().equals(nick)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public List<String> getFriends() {
@@ -198,15 +248,27 @@ public class SocialImplementation implements SocialInterface {
         return false;
     }
 
-    public void searchUser(String nickname) {
-        String a, b;
+    // public void searchUser(String nickname) {
+    // String a, b;
+    // List<User> list_users = getPeersObject();
+    // for (User u : list_users) {
+    // a = u.getNickName();
+    // if (a.toUpperCase().equals(nickname.toUpperCase())) {
+    // u.printUser();
+    // return;
+    // }
+    // }
+    // }
+
+    public User searchUser(String nickname) {
+        String a;
         List<User> list_users = getPeersObject();
         for (User u : list_users) {
             a = u.getNickName();
             if (a.toUpperCase().equals(nickname.toUpperCase())) {
-                u.printUser();
-                return;
+                return u;
             }
         }
+        return null;
     }
 }
