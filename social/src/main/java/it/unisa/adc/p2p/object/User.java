@@ -85,6 +85,11 @@ public class User implements Serializable {
      * This method allows you to return all user information as a single string.
      */
     public String printUser() {
+        return "NICKNAME: " + getNickName() + "\nCHIAVE PROFILO: " + "*********" + "\nNAME: " + getName()
+                + "\nSURNAME: " + getSurname() + "\nAGE: " + getAge();
+    }
+
+    public String printMe() {
         return "NICKNAME: " + getNickName() + "\nCHIAVE PROFILO: " + getProfileKey() + "\nNAME: " + getName()
                 + "\nSURNAME: " + getSurname() + "\nAGE: " + getAge();
     }

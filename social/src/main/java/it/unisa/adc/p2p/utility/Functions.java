@@ -112,13 +112,24 @@ public class Functions {
      */
     public static String createKey(List<Integer> _answer) {
         final Random rand = new Random();
+        int j = 0;
         char[] alphabet = new char[26];
         for (int i = 0; i < 26; i++) {
             alphabet[i] = (char) (97 + i);
         }
+
         StringBuilder sb = new StringBuilder(10);
+        char ch;
+        int r;
         while (sb.length() < 10) {
-            char ch = alphabet[rand.nextInt(26)];
+            if (_answer.get(j) == 0) {
+                r = rand.nextInt(26);
+                ch = alphabet[r];
+            } else {
+                r = rand.nextInt(26);
+                ch = alphabet[(r / 2) + 1];
+            }
+
             if (sb.length() > 0) {
                 if (sb.charAt(sb.length() - 1) != ch) {
                     sb.append(ch);
@@ -126,6 +137,7 @@ public class Functions {
             } else {
                 sb.append(ch);
             }
+            j++;
         }
         return sb.toString();
     }

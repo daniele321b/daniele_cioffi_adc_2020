@@ -40,7 +40,7 @@ public class App {
         peer = new SocialImplementation(Integer.parseInt(args[0]), "127.0.0.1",
                 new MessageListenerImpl(Integer.parseInt(args[0])));
         TextTerminal terminal = textIO.getTextTerminal();
-        terminal.printf("\nWelcome to Social\n");
+        terminal.printf("\nWelcome to Semantic Harmony Social Network\n");
         terminal.printf("Staring peer id: %s on master node: %s\n", args[0], "127.0.0.1");
         terminal.printf("\nAnswer the following questions with 0 (false) or 1 (true)\n");
         Functions.getAnswers(peer.getUserProfileQuestions(), peer._user.get_answers());
@@ -86,7 +86,12 @@ public class App {
                     String newusername = textIO.newStringInputReader().read("\n");
                     User newuser = peer.searchUser(newusername);
                     if (newuser != null) {
-                        printUser(terminal, newuser.printUser());
+                        if (newuser.getNickName().equals(peer._user.getNickName())) {
+                            printUser(terminal, newuser.printMe());
+                        } else {
+                            printUser(terminal, newuser.printUser());
+                        }
+
                     } else {
                         terminal.printf("USER NOT FOUND\n");
                     }
