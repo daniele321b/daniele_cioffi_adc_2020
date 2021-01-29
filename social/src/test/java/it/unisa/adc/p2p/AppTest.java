@@ -220,26 +220,26 @@ public class AppTest {
      * the getPeersObject function which returns as many User objects as those
      * present in the network.
      */
-    @Test
-    void testCaseGetPeersObject() {
-        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-        List<Integer> _answers2 = Arrays.asList(1, 1, 1, 1, 0, 0, 0, 1, 1, 0);
+    // @Test
+    // void testCaseGetPeersObject() {
+    // List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    // List<Integer> _answers2 = Arrays.asList(1, 1, 1, 1, 0, 0, 0, 1, 1, 0);
 
-        peer0.getUserProfileQuestions();
-        peer0._user.set_answers(_answers);
-        String user = peer0.createAuserProfileKey(_answers);
-        peer0.validateNick("pippo");
-        peer0.join(user, "pippo");
+    // peer0.getUserProfileQuestions();
+    // peer0._user.set_answers(_answers);
+    // String user = peer0.createAuserProfileKey(_answers);
+    // peer0.validateNick("pippo");
+    // peer0.join(user, "pippo");
 
-        peer1.getUserProfileQuestions();
-        peer1._user.set_answers(_answers2);
-        String user1 = peer1.createAuserProfileKey(_answers2);
-        peer1.validateNick("pluto");
-        peer1.join(user1, "pluto");
+    // peer1.getUserProfileQuestions();
+    // peer1._user.set_answers(_answers2);
+    // String user1 = peer1.createAuserProfileKey(_answers2);
+    // peer1.validateNick("pluto");
+    // peer1.join(user1, "pluto");
 
-        List<User> list1 = peer0.getPeersObject();
+    // List<User> list1 = peer0.getPeersObject();
 
-    }
+    // }
 
     /*
      * Test case of the get Friends function in case it returns an empty list. This
@@ -303,21 +303,20 @@ public class AppTest {
      * getun User object having as key the string passed as parameter. The test
      * returns true if the object is found, false otherwise.
      */
-    @Test
-    void testCaseGet() throws ClassNotFoundException, IOException {
-        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-        peer0.getUserProfileQuestions();
-        String user = peer0.createAuserProfileKey(_answers);
-        peer0.validateNick("pippo");
-        peer0.join(user, "pippo");
 
-        peer1.getUserProfileQuestions();
-        String user1 = peer1.createAuserProfileKey(_answers);
-        peer1.validateNick("pluto");
-        peer1.join(user1, "pluto");
-        User new_user = peer0.get(user1);
-        assertTrue(!new_user.equals(null));
-    }
+    /*
+     * @Test void testCaseGet() throws ClassNotFoundException, IOException {
+     * List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+     * peer0.getUserProfileQuestions(); String user =
+     * peer0.createAuserProfileKey(_answers); peer0.validateNick("pippo");
+     * peer0.join(user, "pippo");
+     * 
+     * peer1.getUserProfileQuestions(); String user1 =
+     * peer1.createAuserProfileKey(_answers); peer1.validateNick("pluto");
+     * peer1.join(user1, "pluto"); User new_user = peer0.get(user1);
+     * assertTrue(!new_user.equals(null)); }
+     * 
+     */
 
     /*
      * Test case of the leaveNetwork () function. In this case, first the access of
@@ -339,44 +338,32 @@ public class AppTest {
      * access to the network by 4 peers; call the getFriends () function; call the
      * updateData () function; and call the leaveNetwork () function.
      */
-    @Test
-    void testCaseGeneral(TestInfo testInfo) {
-        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-        List<Integer> _answers1 = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-        String string0, string1, string2, string3;
-        peer0._user.set_answers(_answers);
-        peer1._user.set_answers(_answers);
-        peer2._user.set_answers(_answers);
-        peer3._user.set_answers(_answers);
 
-        try {
-            string0 = peer1.createAuserProfileKey(_answers);
-            peer1.join(string0, "peer0");
-            string1 = peer1.createAuserProfileKey(_answers1);
-            peer1.join(string1, "peer1");
-            string2 = peer1.createAuserProfileKey(_answers);
-            peer2.join(string2, "peer2");
-            string3 = peer1.createAuserProfileKey(_answers1);
-            peer3.join(string3, "peer3");
-
-            // peer0.getFriends();
-            peer1.getFriends();
-            peer2.searchUser(string1);
-            peer3.updateData(string2, "user", "user", 20);
-
-            peer3.leaveNetwork();
-            peer1.getFriends();
-
-            peer2.leaveNetwork();
-            peer1.leaveNetwork();
-            peer0.leaveNetwork();
-            System.exit(0);
-
-        } catch (
-
-        Exception e) {
-            e.printStackTrace();
-        }
-    }
+    /*
+     * @Test void testCaseGeneral(TestInfo testInfo) { List<Integer> _answers =
+     * Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0); List<Integer> _answers1 =
+     * Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0); String string0, string1,
+     * string2, string3; peer0._user.set_answers(_answers);
+     * peer1._user.set_answers(_answers); peer2._user.set_answers(_answers);
+     * peer3._user.set_answers(_answers);
+     * 
+     * try { string0 = peer1.createAuserProfileKey(_answers); peer1.join(string0,
+     * "peer0"); string1 = peer1.createAuserProfileKey(_answers1);
+     * peer1.join(string1, "peer1"); string2 =
+     * peer1.createAuserProfileKey(_answers); peer2.join(string2, "peer2"); string3
+     * = peer1.createAuserProfileKey(_answers1); peer3.join(string3, "peer3");
+     * 
+     * // peer0.getFriends(); peer1.getFriends(); peer2.searchUser(string1);
+     * peer3.updateData(string2, "user", "user", 20);
+     * 
+     * peer3.leaveNetwork(); peer1.getFriends();
+     * 
+     * peer2.leaveNetwork(); peer1.leaveNetwork(); peer0.leaveNetwork();
+     * System.exit(0);
+     * 
+     * } catch (
+     * 
+     * Exception e) { e.printStackTrace(); } }
+     */
 
 }
