@@ -286,10 +286,12 @@ public class SocialImplementation implements SocialInterface {
 
         List<User> list_users = getPeersObject();
         List<String> list = new ArrayList<String>();
-        for (User u : list_users) {
-            if (!_user.getNickName().equals(u.getNickName())) {
-                if (Functions.weAreFriends(_user, u)) {
-                    list.add(u.getNickName());
+        if (!list_users.isEmpty()) {
+            for (User u : list_users) {
+                if (!_user.getNickName().equals(u.getNickName())) {
+                    if (Functions.weAreFriends(_user, u)) {
+                        list.add(u.getNickName());
+                    }
                 }
             }
         }

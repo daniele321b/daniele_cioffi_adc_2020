@@ -118,24 +118,20 @@ public class Functions {
             alphabet[i] = (char) (97 + i);
         }
 
-        StringBuilder sb = new StringBuilder(10);
+        StringBuilder sb = new StringBuilder(20);
         char ch;
         int r;
-        while (sb.length() < 10) {
-            if (_answer.get(j) == 0) {
-                r = rand.nextInt(26);
-                ch = alphabet[r];
-            } else {
-                r = rand.nextInt(26);
-                ch = alphabet[(r / 2) + 1];
-            }
-
+        while (sb.length() < 20) {
+            r = rand.nextInt(26);
+            ch = alphabet[r];
             if (sb.length() > 0) {
                 if (sb.charAt(sb.length() - 1) != ch) {
                     sb.append(ch);
+                    sb.append(_answer.get(j));
                 }
             } else {
                 sb.append(ch);
+                sb.append(_answer.get(j));
             }
             j++;
         }
