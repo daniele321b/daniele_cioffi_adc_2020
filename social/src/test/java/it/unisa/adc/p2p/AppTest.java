@@ -5,10 +5,7 @@ import org.junit.jupiter.api.*;
 import it.unisa.adc.p2p.interfaces.MessageListener;
 import it.unisa.adc.p2p.object.User;
 import it.unisa.adc.p2p.utility.Functions;
-import junit.framework.TestCase;
-import net.tomp2p.dht.PeerBuilderDHT;
-import net.tomp2p.p2p.PeerBuilder;
-import net.tomp2p.peers.Number160;
+
 import net.tomp2p.peers.PeerAddress;
 import it.unisa.adc.p2p.SocialImplementation;
 import static org.junit.jupiter.api.Assertions.*;

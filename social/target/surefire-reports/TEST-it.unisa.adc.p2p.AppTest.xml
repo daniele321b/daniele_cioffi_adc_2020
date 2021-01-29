@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.unisa.adc.p2p.AppTest" time="221.169" tests="15" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="14"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\danie\Documents\daniele_cioffi_adc_2020\social\target\test-classes;C:\Users\danie\Documents\daniele_cioffi_adc_2020\social\target\classes;C:\Users\danie\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;C:\Users\danie\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;C:\Users\danie\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-all\5.0-Beta8\tomp2p-all-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-core\5.0-Beta8\tomp2p-core-5.0-Beta8.jar;C:\Users\danie\.m2\repository\io\netty\netty-transport\4.0.28.Final\netty-transport-4.0.28.Final.jar;C:\Users\danie\.m2\repository\io\netty\netty-buffer\4.0.28.Final\netty-buffer-4.0.28.Final.jar;C:\Users\danie\.m2\repository\io\netty\netty-common\4.0.28.Final\netty-common-4.0.28.Final.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-nat\5.0-Beta8\tomp2p-nat-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\bitlet\weupnp\0.1.2\weupnp-0.1.2.jar;C:\Users\danie\.m2\repository\com\ganyo\gcm-server\1.0.2\gcm-server-1.0.2.jar;C:\Users\danie\.m2\repository\com\googlecode\json-simple\json-simple\1.1\json-simple-1.1.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-android\5.0-Beta8\tomp2p-android-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-replication\5.0-Beta8\tomp2p-replication-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-storage\5.0-Beta8\tomp2p-storage-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\mapdb\mapdb\1.0.6\mapdb-1.0.6.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-dht\5.0-Beta8\tomp2p-dht-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-tracker\5.0-Beta8\tomp2p-tracker-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\slf4j\slf4j-api\1.7.5\slf4j-api-1.7.5.jar;C:\Users\danie\.m2\repository\org\beryx\text-io\3.3.0\text-io-3.3.0.jar;C:\Users\danie\.m2\repository\jline\jline\2.14.5\jline-2.14.5.jar;C:\Users\danie\.m2\repository\org\beryx\awt-color-factory\1.0.0\awt-color-factory-1.0.0.jar;C:\Users\danie\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\Users\danie\.m2\repository\args4j\args4j\2.33\args4j-2.33.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/Rome"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="14"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IT"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-14.0.1\bin"/>
+    <property name="sun.java.command" value="C:\Users\danie\AppData\Local\Temp\surefire10310569786873269145\surefirebooter7156589394575803681.jar C:\Users\danie\AppData\Local\Temp\surefire10310569786873269145 2021-01-29T19-47-47_784-jvmRun1 surefire8958999807666699973tmp surefire_011195519579224411750tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\danie\Documents\daniele_cioffi_adc_2020\social\target\test-classes;C:\Users\danie\Documents\daniele_cioffi_adc_2020\social\target\classes;C:\Users\danie\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;C:\Users\danie\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;C:\Users\danie\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-all\5.0-Beta8\tomp2p-all-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-core\5.0-Beta8\tomp2p-core-5.0-Beta8.jar;C:\Users\danie\.m2\repository\io\netty\netty-transport\4.0.28.Final\netty-transport-4.0.28.Final.jar;C:\Users\danie\.m2\repository\io\netty\netty-buffer\4.0.28.Final\netty-buffer-4.0.28.Final.jar;C:\Users\danie\.m2\repository\io\netty\netty-common\4.0.28.Final\netty-common-4.0.28.Final.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-nat\5.0-Beta8\tomp2p-nat-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\bitlet\weupnp\0.1.2\weupnp-0.1.2.jar;C:\Users\danie\.m2\repository\com\ganyo\gcm-server\1.0.2\gcm-server-1.0.2.jar;C:\Users\danie\.m2\repository\com\googlecode\json-simple\json-simple\1.1\json-simple-1.1.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-android\5.0-Beta8\tomp2p-android-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-replication\5.0-Beta8\tomp2p-replication-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-storage\5.0-Beta8\tomp2p-storage-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\mapdb\mapdb\1.0.6\mapdb-1.0.6.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-dht\5.0-Beta8\tomp2p-dht-5.0-Beta8.jar;C:\Users\danie\.m2\repository\net\tomp2p\tomp2p-tracker\5.0-Beta8\tomp2p-tracker-5.0-Beta8.jar;C:\Users\danie\.m2\repository\org\slf4j\slf4j-api\1.7.5\slf4j-api-1.7.5.jar;C:\Users\danie\.m2\repository\org\beryx\text-io\3.3.0\text-io-3.3.0.jar;C:\Users\danie\.m2\repository\jline\jline\2.14.5\jline-2.14.5.jar;C:\Users\danie\.m2\repository\org\beryx\awt-color-factory\1.0.0\awt-color-factory-1.0.0.jar;C:\Users\danie\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\Users\danie\.m2\repository\args4j\args4j\2.33\args4j-2.33.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\danie"/>
+    <property name="user.language" value="it"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2020-04-14"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-14.0.1"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\danie\Documents\daniele_cioffi_adc_2020\social"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\danie\AppData\Local\Temp\surefire10310569786873269145\surefirebooter7156589394575803681.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="14.0.1+7"/>
+    <property name="user.name" value="danie"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\danie\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\danie\AppData\Local\Temp\"/>
+    <property name="java.version" value="14.0.1"/>
+    <property name="user.dir" value="C:\Users\danie\Documents\daniele_cioffi_adc_2020\social"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-14.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\danie\bin;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Amazon\AWSCLIV2;C:\Program Files\Amazon\AWSCLI;C:\Program Files\Git LFS;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\apache-maven-3.6.3\apache-maven\src\bin;C:\Program Files\Java\jdk-14.0.1\bin;C:\Users\danie\AppData\Local\Microsoft\WindowsApps;C:\Users\danie\AppData\Local\atom\bin;C:\Users\danie\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\danie\AppData\Local\Programs\Python\Python38;C:\Users\danie\AppData\Local\Programs\Python\Python38\Scripts;C:\Users\danie\AppData\Roaming\npm;C:\Users\danie\AppData\Local\Microsoft\WindowsApps;C:\Program Files\apache-maven-3.6.3\bin;C:\Program Files\Java\jdk-14.0.1\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="14.0.1+7"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="58.0"/>
+  </properties>
+  <testcase name="testCasePopulateAnswersList" classname="it.unisa.adc.p2p.AppTest" time="0.031"/>
+  <testcase name="testCaseValidateInt" classname="it.unisa.adc.p2p.AppTest" time="0.384"/>
+  <testcase name="testCaseAddAnAnswers" classname="it.unisa.adc.p2p.AppTest" time="0.001"/>
+  <testcase name="testCaseCheckExistence" classname="it.unisa.adc.p2p.AppTest" time="0"/>
+  <testcase name="testCaseGetUserProfileQuestions" classname="it.unisa.adc.p2p.AppTest" time="0.001"/>
+  <testcase name="testCreateAuserProfileKey" classname="it.unisa.adc.p2p.AppTest" time="0.028"/>
+  <testcase name="testCaseUpdateData" classname="it.unisa.adc.p2p.AppTest" time="0.093"/>
+  <testcase name="testCaseGetUserProfileQuestionsSingleQuestion" classname="it.unisa.adc.p2p.AppTest" time="0.003"/>
+  <testcase name="testCaseGetFriendsEmpty" classname="it.unisa.adc.p2p.AppTest" time="0.095"/>
+  <testcase name="testCaseJoin" classname="it.unisa.adc.p2p.AppTest" time="0.01"/>
+  <testcase name="testCaseCreatePeerAddressList" classname="it.unisa.adc.p2p.AppTest" time="0.004"/>
+  <testcase name="testCaseWeAreFriends" classname="it.unisa.adc.p2p.AppTest" time="0"/>
+  <testcase name="testCaseSendNotification" classname="it.unisa.adc.p2p.AppTest" time="0.017"/>
+  <testcase name="testCaseLeaveNetwork" classname="it.unisa.adc.p2p.AppTest" time="0.047"/>
+  <testcase name="testCaseCreateKey" classname="it.unisa.adc.p2p.AppTest" time="0"/>
+</testsuite>
