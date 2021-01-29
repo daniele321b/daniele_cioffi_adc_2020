@@ -1,0 +1,24 @@
+# Created at 2021-01-29T19:08:40.031
+Unexpected IOException: 5,1,it.unisa.adc.p2p.AppTest,testCaseCheckExistence,null,null,null
+
+
+# Created at 2021-01-29T19:08:40.034
+Unexpected IOException: 6,1,it.unisa.adc.p2p.AppTest,testCaseCheckExistence,null,null,null
+
+
+# Created at 2021-01-29T19:08:55.599
+Unexpected IOException: 5,1,it.unisa.adc.p2p.AppTest,testCaseGetUserProfileQuestions,null,null,null
+
+
+# Created at 2021-01-29T19:08:55.603
+Unexpected IOException: 6,1,it.unisa.adc.p2p.AppTest,testCaseGetUserProfileQuestions,null,null,null
+
+
+# Created at 2021-01-29T19:09:11.123
+Unexpected IOException: 5,1,it.unisa.adc.p2p.AppTest,testCaseGetFriendsNotEmpty,null,null,null
+
+
+# Created at 2021-01-29T19:09:11.257
+Unexpected IOException: 8,1,it.unisa.adc.p2p.AppTest,testCaseGetFriendsNotEmpty,null,expected: <true> but was: <false>,null,expected: <true> but was: <false>,AppTest.testCaseGetFriendsNotEmpty:298 expected: <true> but was: <false>,org.opentest4j.AssertionFailedError: expected: <true> but was: <false>\000A\0009at it.unisa.adc.p2p.AppTest.testCaseGetFriendsNotEmpty(AppTest.java:298)\000A
+
+
