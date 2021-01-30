@@ -251,7 +251,6 @@ public class SocialImplementation implements SocialInterface {
     /* Method to check if the generated key is already present. */
     public boolean validateKey(String key) {
         List<User> list_users = getPeersObject();
-        // if list_user !=null
         for (User u : list_users) {
             if (u.getProfileKey().equals(key)) {
                 return false;

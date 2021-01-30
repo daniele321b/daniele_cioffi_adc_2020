@@ -27,19 +27,24 @@ public class AppTest {
 
     public AppTest() throws Exception {
 
-        class MessageListenerImpl implements MessageListener {
+    }
 
-            int peerid;
+    static class MessageListenerImpl implements MessageListener {
 
-            public MessageListenerImpl(int peerid) {
-                this.peerid = peerid;
-            }
+        int peerid;
 
-            public Object parseMessage(Object obj) {
-                return "success";
-            }
-
+        public MessageListenerImpl(int peerid) {
+            this.peerid = peerid;
         }
+
+        public Object parseMessage(Object obj) {
+            return "success";
+        }
+
+    }
+
+    @BeforeAll
+    static void initPeers() throws Exception {
         /* Initialization of peers used for testing */
         peer0 = new SocialImplementation(0, "127.0.0.1", new MessageListenerImpl(0));
         peer1 = new SocialImplementation(1, "127.0.0.1", new MessageListenerImpl(1));
@@ -123,6 +128,11 @@ public class AppTest {
     }
 
     /*
+     * Test cases of the main functions that are used for the correct functioning of
+     * the p2p network...
+     */
+
+    /*
      * Test case to simulate entry creation in DHT to save a HashMap to be used for
      * storing PeerAddress-String pairs (Peer key)
      */
@@ -130,11 +140,6 @@ public class AppTest {
     void testCaseCreatePeerAddressList() {
         assertTrue(peer0.creatPeerAddressList());
     }
-
-    /*
-     * Test cases of the main functions that are used for the correct functioning of
-     * the p2p network...
-     */
 
     /* Test case to simulate returning a single question (string) to the user. */
     @Test
@@ -199,7 +204,7 @@ public class AppTest {
      * Test case of the updateData () function. This test first predicts that a peer
      * has logged into the network and then subsequently wants to change their
      * personal data. It returns true if the operation is successful, false
-     * otherwise.
+     * otherwise. This method involves throwing an exception in case of failure.
      */
     @Test
     void testCaseUpdateData() throws ClassNotFoundException, IOException {
@@ -217,26 +222,27 @@ public class AppTest {
      * the getPeersObject function which returns as many User objects as those
      * present in the network.
      */
-    // @Test
-    // void testCaseGetPeersObject() {
-    // List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-    // List<Integer> _answers2 = Arrays.asList(1, 1, 1, 1, 0, 0, 0, 1, 1, 0);
+    @Test
+    void testCaseGetPeersObject() {
+        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+        List<Integer> _answers2 = Arrays.asList(1, 1, 1, 1, 0, 0, 0, 1, 1, 0);
 
-    // peer0.getUserProfileQuestions();
-    // peer0._user.set_answers(_answers);
-    // String user = peer0.createAuserProfileKey(_answers);
-    // peer0.validateNick("pippo");
-    // peer0.join(user, "pippo");
+        peer0.getUserProfileQuestions();
+        peer0._user.set_answers(_answers);
+        String user = peer0.createAuserProfileKey(_answers);
+        peer0.validateNick("pippo");
+        peer0.join(user, "pippo");
 
-    // peer1.getUserProfileQuestions();
-    // peer1._user.set_answers(_answers2);
-    // String user1 = peer1.createAuserProfileKey(_answers2);
-    // peer1.validateNick("pluto");
-    // peer1.join(user1, "pluto");
+        peer1.getUserProfileQuestions();
+        peer1._user.set_answers(_answers2);
+        String user1 = peer1.createAuserProfileKey(_answers2);
+        peer1.validateNick("pluto");
+        peer1.join(user1, "pluto");
 
-    // List<User> list1 = peer0.getPeersObject();
-
-    // }
+        List<User> list1 = peer0.getPeersObject();
+        // System.out.println(list1);
+        assertTrue(list1.size() == 2);
+    }
 
     /*
      * Test case of the get Friends function in case it returns an empty list. This
@@ -248,6 +254,7 @@ public class AppTest {
 
     @Test
     void testCaseGetFriendsEmpty() {
+        // different response vectors
         List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
         List<Integer> _answers2 = Arrays.asList(1, 1, 1, 1, 0, 0, 0, 1, 1, 0);
 
@@ -277,43 +284,48 @@ public class AppTest {
      * the network. In this case the test returns true if the friends list contains
      * a nickname, 0 otherwise.
      */
-    // @Test
-    // void testCaseGetFriendsNotEmpty() {
-    // List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-    // peer0.getUserProfileQuestions();
-    // String user = peer0.createAuserProfileKey(_answers);
-    // peer0.validateNick("pippo");
-    // peer0.join(user, "pippo");
+    @Test
+    void testCaseGetFriendsNotEmpty() {
+        // same vector answers
+        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+        peer0.getUserProfileQuestions();
+        String user = peer0.createAuserProfileKey(_answers);
+        peer0.validateNick("pippo");
+        peer0.join(user, "pippo");
 
-    // peer1.getUserProfileQuestions();
-    // String user1 = peer1.createAuserProfileKey(_answers);
-    // peer1.validateNick("pluto");
-    // peer1.join(user1, "pluto");
+        peer1.getUserProfileQuestions();
+        String user1 = peer1.createAuserProfileKey(_answers);
+        peer1.validateNick("pluto");
+        peer1.join(user1, "pluto");
 
-    // List<String> list1 = new ArrayList<>();
-    // list1 = peer1.getFriends();
-    // assertTrue(list1.size() == 1);
-    // }
+        List<String> list1 = new ArrayList<>();
+        list1 = peer1.getFriends();
+        // System.out.println(list1);
+        assertTrue(list1.size() == 1);
+    }
 
     /*
      * Test case of the get function. This test simulates the call to the function
      * getun User object having as key the string passed as parameter. The test
-     * returns true if the object is found, false otherwise.
+     * returns true if the object is found, false otherwise. This method involves
+     * throwing an exception in case of failure.
      */
 
-    /*
-     * @Test void testCaseGet() throws ClassNotFoundException, IOException {
-     * List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
-     * peer0.getUserProfileQuestions(); String user =
-     * peer0.createAuserProfileKey(_answers); peer0.validateNick("pippo");
-     * peer0.join(user, "pippo");
-     * 
-     * peer1.getUserProfileQuestions(); String user1 =
-     * peer1.createAuserProfileKey(_answers); peer1.validateNick("pluto");
-     * peer1.join(user1, "pluto"); User new_user = peer0.get(user1);
-     * assertTrue(!new_user.equals(null)); }
-     * 
-     */
+    @Test
+    void testCaseGet() throws ClassNotFoundException, IOException {
+        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+        peer0.getUserProfileQuestions();
+        String user = peer0.createAuserProfileKey(_answers);
+        peer0.validateNick("pippo");
+        peer0.join(user, "pippo");
+
+        peer1.getUserProfileQuestions();
+        String user1 = peer1.createAuserProfileKey(_answers);
+        peer1.validateNick("pluto");
+        peer1.join(user1, "pluto");
+        User new_user = peer0.get(user1);
+        assertTrue(!new_user.equals(null));
+    }
 
     /*
      * Test case of the leaveNetwork () function. In this case, first the access of
@@ -331,36 +343,28 @@ public class AppTest {
     }
 
     /*
-     * In this test case we tend to simulate a normal operation of the network with:
-     * access to the network by 4 peers; call the getFriends () function; call the
-     * updateData () function; and call the leaveNetwork () function.
+     * Test case of the searchUser () function. Two peers are logged into the
+     * network and one of them searches for the other by entering only the nickname.
+     * The test returns true if the user is found and false otherwise.
      */
+    @Test
+    void testCaseSearchUser() {
 
-    /*
-     * @Test void testCaseGeneral(TestInfo testInfo) { List<Integer> _answers =
-     * Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0); List<Integer> _answers1 =
-     * Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0); String string0, string1,
-     * string2, string3; peer0._user.set_answers(_answers);
-     * peer1._user.set_answers(_answers); peer2._user.set_answers(_answers);
-     * peer3._user.set_answers(_answers);
-     * 
-     * try { string0 = peer1.createAuserProfileKey(_answers); peer1.join(string0,
-     * "peer0"); string1 = peer1.createAuserProfileKey(_answers1);
-     * peer1.join(string1, "peer1"); string2 =
-     * peer1.createAuserProfileKey(_answers); peer2.join(string2, "peer2"); string3
-     * = peer1.createAuserProfileKey(_answers1); peer3.join(string3, "peer3");
-     * 
-     * // peer0.getFriends(); peer1.getFriends(); peer2.searchUser(string1);
-     * peer3.updateData(string2, "user", "user", 20);
-     * 
-     * peer3.leaveNetwork(); peer1.getFriends();
-     * 
-     * peer2.leaveNetwork(); peer1.leaveNetwork(); peer0.leaveNetwork();
-     * System.exit(0);
-     * 
-     * } catch (
-     * 
-     * Exception e) { e.printStackTrace(); } }
-     */
+        List<Integer> _answers = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+        peer0.getUserProfileQuestions();
+        String user = peer0.createAuserProfileKey(_answers);
+        peer0.validateNick("pippo");
+        peer0.join(user, "pippo");
+
+        peer1.getUserProfileQuestions();
+        String user1 = peer1.createAuserProfileKey(_answers);
+        peer1.validateNick("pluto");
+        peer1.join(user1, "pluto");
+
+        User new_user = peer0.searchUser("pluto");
+        // System.out.println(new_user);
+        assertTrue(new_user.getNickName() != null);
+
+    }
 
 }

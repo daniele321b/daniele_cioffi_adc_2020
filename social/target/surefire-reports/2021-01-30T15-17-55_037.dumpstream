@@ -1,0 +1,15 @@
+# Created at 2021-01-30T15:17:57.514
+WARNING: An illegal reflective access operation has occurred
+
+# Created at 2021-01-30T15:17:57.516
+WARNING: Illegal reflective access by io.netty.util.internal.PlatformDependent0 (file:/C:/Users/danie/.m2/repository/io/netty/netty-common/4.0.28.Final/netty-common-4.0.28.Final.jar) to field java.nio.Buffer.address
+
+# Created at 2021-01-30T15:17:57.517
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.PlatformDependent0
+
+# Created at 2021-01-30T15:17:57.518
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+
+# Created at 2021-01-30T15:17:57.523
+WARNING: All illegal access operations will be denied in a future release
+

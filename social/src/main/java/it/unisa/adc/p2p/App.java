@@ -48,8 +48,6 @@ public class App {
         App app = new App();
         final CmdLineParser parser = new CmdLineParser(app);
 
-        // peer = new SocialImplementation(Integer.parseInt(args[0]), "127.0.0.1",
-        // new MessageListenerImpl(Integer.parseInt(args[0])));
         try {
             parser.parseArgument(args);
             TextTerminal terminal = textIO.getTextTerminal();
@@ -87,8 +85,6 @@ public class App {
                     case 1:
                         list = peer.getFriends();
                         if (list.size() != 0) {
-                            // terminal.printf("FRIEND LIST [Nickname] ==>" + peer._user.getFriends() +
-                            // "\n");
                             terminal.printf("FRIEND LIST [Nickname]: \n");
                             Functions.showFriends(peer._user.getFriends());
                         } else {
