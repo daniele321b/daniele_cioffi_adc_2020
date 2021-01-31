@@ -92,7 +92,7 @@ The project is structured as follows:
 1. The organization is mainly divided into 3 categories:
 
    1. the interfaces used in the project
-   2. the classes (a) object (pure java object)
+   2. the classes object (pure java object)
    3. classes with utility functions
 
 
