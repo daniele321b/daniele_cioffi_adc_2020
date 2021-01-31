@@ -126,6 +126,7 @@ public class App {
     }
 
     private static void showMenu(TextTerminal terminal) {
+        terminal.printf("\nMENU\n");
         terminal.printf("\nType 1 to show your friends\n");
         terminal.printf("Type 2 to search a people with username\n");
         terminal.printf("Type 3 to update your user data\n");
