@@ -6,6 +6,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "it.unisa.adc.p2p.App",
+            "projectName": "social",
+            "args": [
+                "-m",
+                "127.0.0.1",
+                "-id",
+                "0"
+            ],
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
