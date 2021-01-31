@@ -59,11 +59,11 @@ When a user logs in to the social network, all users connected at that moment wi
 
 # 2. Technologies used#
 
-- **Programming language **: Java 8
-- **DHT management **: TOM P2P
-- **Software Project Management **: Apache Maven
-- **Containerization technology **: Docker
-- **Testing **: JUnit v4.11
+- **Programming language**: Java 8
+- **DHT management**: TOM P2P
+- **Software Project Management**: Apache Maven
+- **Containerization technology**: Docker
+- **Testing**: JUnit v4.11
 
 
 
