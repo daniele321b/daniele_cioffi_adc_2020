@@ -496,8 +496,14 @@ The main class contains the MessageListenerImpl class which implements the Messa
 Its behavior is elementary: it reports the message on the terminal. In particular, it is used to send a notification of join to the social by a peer to all peers connected at that moment.
 
 Finally, it is possible to use some of the features implemented several times, thanks to a basic menu created ad hoc.
+```
+MENU
 
-![image-20210131183613193](C:\Users\danie\AppData\Roaming\Typora\typora-user-images\image-20210131183613193.png)
+Type 1 to show your friends
+Type 2 to search a people with username
+Type 3 to update your user data
+Type 4 to leave from social
+```
 
 For each of the visible options, a series of method calls is defined that allow you to perform this operation.
 
