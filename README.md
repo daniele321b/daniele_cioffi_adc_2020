@@ -639,7 +639,7 @@ Here are the test cases of some functions implemented in the project:
 
 
 
-# 5. Dipendenze
+# 5. Dependencies
 
 Here are the dependencies defined in the pom.xml file necessary for both the project build and the testing phase.
 
