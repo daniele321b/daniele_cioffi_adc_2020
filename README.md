@@ -756,7 +756,7 @@ The basic steps to run this application in a Docker container:
     The command to execute is therefore the following:
 
 ```
-docker run -i --name PEER-1 -e masterip="ip-container" -e ID=1 social-p2p
+docker run -i --name PEER-1 -e MASTERIP="ip-container" -e ID=1 social-p2p
 ```
 
 To launch other peers just execute the last block by entering a different ID at each launch.
